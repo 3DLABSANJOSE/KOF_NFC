@@ -8,20 +8,26 @@
 </head>
 <body>
 
+    <!-- Audio de Fondo (Intro KOF) -->
+    <audio id="bg-music" src="intro.mp3" loop autoplay></audio>
+
+    <!-- Botón flotante para mutear/desmutear música -->
+    <button id="music-btn" class="audio-toggle-btn" onclick="toggleMusic()">🔊 MÚSICA: ON</button>
+
     <div id="selector" class="menu-card">
         <h1>THE KING OF FIGHTERS</h1>
         
-        <button class="game-btn" onclick="launchGame('./roms/kof96.zip', 'neogeo')">
+        <button class="game-btn" onclick="launchGame('roms/kof96.zip', 'neogeo')">
             <img src="snap/kof96.png" alt="KOF 96">
             <span>KOF '96</span>
         </button>
 
-        <button class="game-btn" onclick="launchGame('./roms/kof97.zip', 'neogeo')">
+        <button class="game-btn" onclick="launchGame('roms/kof97.zip', 'neogeo')">
             <img src="snap/kof97.png" alt="KOF 97">
             <span>KOF '97</span>
         </button>
 
-        <button class="game-btn" onclick="launchGame('./roms/kof98.zip', 'neogeo')">
+        <button class="game-btn" onclick="launchGame('roms/kof98.zip', 'neogeo')">
             <img src="snap/kof98.png" alt="KOF 98">
             <span>KOF '98</span>
         </button>
@@ -34,14 +40,34 @@
     </div>
 
     <script type="text/javascript">
+        // Control de Música
+        const music = document.getElementById('bg-music');
+        music.volume = 0.4; // Volumen al 40% para que no sature
+
+        function toggleMusic() {
+            const btn = document.getElementById('music-btn');
+            if (music.paused) {
+                music.play();
+                btn.textContent = "🔊 MÚSICA: ON";
+            } else {
+                music.pause();
+                btn.textContent = "mute MÚSICA: OFF";
+            }
+        }
+
+        // Lanzar Juego
         function launchGame(romPath, coreName) {
+            // Apagar la música del menú al arrancar el juego
+            music.pause();
+
             document.getElementById('selector').style.display = 'none';
+            document.getElementById('music-btn').style.display = 'none';
             document.getElementById('emulator-container').style.display = 'block';
 
             EJS_player = '#game';
             EJS_core = coreName; 
             EJS_gameUrl = romPath;
-            EJS_biosUrl = './roms/neogeo.zip';
+            EJS_biosUrl = 'roms/neogeo.zip'; // Ajustalo si la pusiste dentro de la carpeta roms
             EJS_pathToData = 'https://cdn.emulatorjs.org/stable/data/';
 
             var script = document.createElement('script');
