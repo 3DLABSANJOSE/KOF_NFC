@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOF Collection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="selector" class="menu-card">
+        <h1>THE KING OF FIGHTERS</h1>
+        
+        <button class="game-btn" onclick="launchGame('./roms/kof96.zip', 'neogeo')">
+            <img src="snap/kof96.png" alt="KOF 96">
+            <span>KOF '96</span>
+        </button>
+
+        <button class="game-btn" onclick="launchGame('./roms/kof97.zip', 'neogeo')">
+            <img src="snap/kof97.png" alt="KOF 97">
+            <span>KOF '97</span>
+        </button>
+
+        <button class="game-btn" onclick="launchGame('./roms/kof98.zip', 'neogeo')">
+            <img src="snap/kof98.png" alt="KOF 98">
+            <span>KOF '98</span>
+        </button>
+    </div>
+
+    <!-- Contenedor del Emulador -->
+    <div id="emulator-container">
+        <button class="back-btn" onclick="closeGame()">◀ VOLVER AL MENÚ</button>
+        <div id="game" style="width:100%; height:100%;"></div>
+    </div>
+
+    <script type="text/javascript">
+        function launchGame(romPath, coreName) {
+            document.getElementById('selector').style.display = 'none';
+            document.getElementById('emulator-container').style.display = 'block';
+
+            EJS_player = '#game';
+            EJS_core = coreName; 
+            EJS_gameUrl = romPath;
+            EJS_biosUrl = './roms/neogeo.zip';
+            EJS_pathToData = 'https://cdn.emulatorjs.org/stable/data/';
+
+            var script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.body.appendChild(script);
+        }
+
+        function closeGame() {
+            location.reload();
+        }
+    </script>
+
+</body>
+</html>
