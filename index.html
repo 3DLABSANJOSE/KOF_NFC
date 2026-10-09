@@ -17,26 +17,23 @@
     <div id="selector" class="menu-card">
         <h1>THE KING OF FIGHTERS</h1>
         
-        <button class="game-btn" data-url="https://github.com/3DLABSANJOSE/KOF_NFC/releases/download/v1.0/kof96.zip">
+        <!-- Botón KOF 96 -->
+        <a href="https://www.neogeofun.com/kof96-2" class="game-btn" target="_blank">
             <img src="kof96.png" alt="KOF 96">
             <span>KOF '96</span>
-        </button>
+        </a>
 
-        <button class="game-btn" data-url="https://github.com/3DLABSANJOSE/KOF_NFC/releases/download/v1.0/kof97.zip">
+        <!-- Botón KOF 97 -->
+        <a href="https://www.neogeofun.com/kof97" class="game-btn" target="_blank">
             <img src="kof97.png" alt="KOF 97">
             <span>KOF '97</span>
-        </button>
+        </a>
 
-        <button class="game-btn" data-url="https://github.com/3DLABSANJOSE/KOF_NFC/releases/download/v1.0/kof98.zip">
+        <!-- Botón KOF 98 -->
+        <a href="https://www.retrogames.cc/arcade-games/the-king-of-fighters-98-the-slugfest-king-of-fighters-98-dream-match-never-ends-ngm-2420.html" class="game-btn" target="_blank">
             <img src="kof98.png" alt="KOF 98">
             <span>KOF '98</span>
-        </button>
-    </div>
-
-    <!-- Contenedor del Emulador -->
-    <div id="emulator-container">
-        <button class="back-btn" onclick="closeGame()">◀ VOLVER AL MENÚ</button>
-        <div id="game" style="width:100%; height:100%;"></div>
+        </a>
     </div>
 
     <script type="text/javascript">
@@ -52,44 +49,6 @@
                 music.pause();
                 btn.textContent = "🔇 MÚSICA: OFF";
             }
-        }
-
-        document.querySelectorAll('.game-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const romUrl = button.getAttribute('data-url');
-                launchGame(romUrl);
-            });
-        });
-
-        function launchGame(romUrl) {
-            music.pause();
-
-            document.getElementById('selector').style.display = 'none';
-            document.getElementById('music-btn').style.display = 'none';
-            document.getElementById('emulator-container').style.display = 'block';
-
-            window.EJS_player = '#game';
-            window.EJS_core = 'mame2003_plus'; // Usamos mame2003_plus para evitar pantallas azules de romsets estrictos
-            window.EJS_gameUrl = romUrl;
-            window.EJS_biosUrl = 'https://github.com/3DLABSANJOSE/KOF_NFC/releases/download/v1.0/neogeo.zip';
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            window.EJS_mouse = false;
-            window.EJS_multitouch = true;
-            window.EJS_startOnLoaded = true;
-
-            if (document.getElementById('ejs-loader')) {
-                location.reload();
-                return;
-            }
-
-            var script = document.createElement('script');
-            script.id = 'ejs-loader';
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            document.body.appendChild(script);
-        }
-
-        function closeGame() {
-            location.reload();
         }
     </script>
 
