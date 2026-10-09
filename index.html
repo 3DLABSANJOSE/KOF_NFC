@@ -55,9 +55,9 @@
             }
         }
 
-        // Variables globales obligatorias para EmulatorJS
+        // Usamos 'fbneo' como núcleo para corregir el error de descarga del core de Neo Geo
         window.EJS_player = '#game';
-        window.EJS_core = 'neogeo';
+        window.EJS_core = 'fbneo';
         window.EJS_biosUrl = 'neogeo.zip';
         window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
         window.EJS_mouse = false;
@@ -70,16 +70,13 @@
             document.getElementById('music-btn').style.display = 'none';
             document.getElementById('emulator-container').style.display = 'block';
 
-            // Asignar la ROM seleccionada
             window.EJS_gameUrl = romFile;
 
-            // Si el script ya existe, recargamos la página para limpiar la instancia anterior
             if (document.getElementById('ejs-loader')) {
                 location.reload();
                 return;
             }
 
-            // Inyectar el script del emulador
             let script = document.createElement('script');
             script.id = 'ejs-loader';
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
