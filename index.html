@@ -8,26 +8,26 @@
 </head>
 <body>
 
-    <!-- Audio de Fondo -->
+    <!-- Audio de Fondo (Intro KOF) -->
     <audio id="bg-music" src="intro.mp3" loop autoplay></audio>
 
-    <!-- Botón flotante de Música -->
+    <!-- Botón flotante para mutear/desmutear música -->
     <button id="music-btn" class="audio-toggle-btn" onclick="toggleMusic()">🔊 MÚSICA: ON</button>
 
     <div id="selector" class="menu-card">
         <h1>THE KING OF FIGHTERS</h1>
         
-        <button class="game-btn" onclick="launchGame('kof96.zip')">
+        <button class="game-btn" onclick="launchGame('https://github.com/3DLABSANJOSE/KOF_NFC/releases/download/v1.0/kof96.zip')">
             <img src="kof96.png" alt="KOF 96">
             <span>KOF '96</span>
         </button>
 
-        <button class="game-btn" onclick="launchGame('kof97.zip')">
+        <button class="game-btn" onclick="launchGame('https://github.com/3DLABSANJOSE/KOF_NFC/releases/download/v1.0/kof97.zip')">
             <img src="kof97.png" alt="KOF 97">
             <span>KOF '97</span>
         </button>
 
-        <button class="game-btn" onclick="launchGame('kof98.zip')">
+        <button class="game-btn" onclick="launchGame('https://github.com/3DLABSANJOSE/KOF_NFC/releases/download/v1.0/kof98.zip')">
             <img src="kof98.png" alt="KOF 98">
             <span>KOF '98</span>
         </button>
@@ -39,8 +39,8 @@
         <div id="game" style="width:100%; height:100%;"></div>
     </div>
 
-    <!-- Configuración Global de EmulatorJS -->
-    <script>
+    <script type="text/javascript">
+        // Control de Música
         const music = document.getElementById('bg-music');
         music.volume = 0.4;
 
@@ -55,29 +55,29 @@
             }
         }
 
-        // Cambiamos al núcleo mame2003_plus para mayor compatibilidad con ROMs de Neo Geo
-        window.EJS_player = '#game';
-        window.EJS_core = 'mame2003_plus';
-        window.EJS_biosUrl = 'neogeo.zip';
-        window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-        window.EJS_mouse = false;
-        window.EJS_multitouch = true;
-        window.EJS_startOnLoaded = true;
-
-        function launchGame(romFile) {
+        // Configuración para lanzar el juego mediante los binarios de la Release
+        function launchGame(romUrl) {
             music.pause();
+
             document.getElementById('selector').style.display = 'none';
             document.getElementById('music-btn').style.display = 'none';
             document.getElementById('emulator-container').style.display = 'block';
 
-            window.EJS_gameUrl = romFile;
+            window.EJS_player = '#game';
+            window.EJS_core = 'fbneo'; 
+            window.EJS_gameUrl = romUrl;
+            window.EJS_biosUrl = 'https://github.com/3DLABSANJOSE/KOF_NFC/releases/download/v1.0/neogeo.zip';
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_mouse = false;
+            window.EJS_multitouch = true;
+            window.EJS_startOnLoaded = true;
 
             if (document.getElementById('ejs-loader')) {
                 location.reload();
                 return;
             }
 
-            let script = document.createElement('script');
+            var script = document.createElement('script');
             script.id = 'ejs-loader';
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
             document.body.appendChild(script);
@@ -87,5 +87,6 @@
             location.reload();
         }
     </script>
+
 </body>
 </html>
